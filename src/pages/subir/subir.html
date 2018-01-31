@@ -7,7 +7,7 @@
         Cerrar
       </button>
     </ion-buttons>
-    <ion-title>Crear Post</ion-title>
+    <ion-title>{{titulo | placeHolder: 'Crear Post'}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,7 +17,7 @@
   <ion-list>
     <ion-item>
       <ion-label floating>Titulo</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="titulo"></ion-input>
     </ion-item>
     <ion-item>
       <img src="https://techbeacon.scdn7.secure.raxcdn.com/sites/default/files/styles/article_hero_image/public/mobile-dev-2016-hot-technologies-dangerous-assumptions_0.jpg?itok=bVbxA1uy"/>
@@ -36,7 +36,8 @@
       <ion-col>
         <button ion-button
                 block
-                icon-left>
+                icon-left
+                (click)="mostrarCamara()">
           <ion-icon ios="ios-camera" md="md-camera"></ion-icon>
           Camara
         </button>

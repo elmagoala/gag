@@ -7,16 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <img src="https://techbeacon.scdn7.secure.raxcdn.com/sites/default/files/styles/article_hero_image/public/mobile-dev-2016-hot-technologies-dangerous-assumptions_0.jpg?itok=bVbxA1uy"/>
+  <ion-card *ngFor="let post of posts | async">
+    <img [src]="post.img"/>
     <ion-card-content>
       <ion-card-title>
-        Post 1
+        {{post.titulo}}
       </ion-card-title>
-      <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
-      </p>
     </ion-card-content>
     <ion-row>
       <ion-col text-right>
