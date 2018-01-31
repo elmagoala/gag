@@ -19,8 +19,8 @@
       <ion-label floating>Titulo</ion-label>
       <ion-input type="text" [(ngModel)]="titulo"></ion-input>
     </ion-item>
-    <ion-item>
-      <img src="https://techbeacon.scdn7.secure.raxcdn.com/sites/default/files/styles/article_hero_image/public/mobile-dev-2016-hot-technologies-dangerous-assumptions_0.jpg?itok=bVbxA1uy"/>
+    <ion-item *ngIf="imagen">
+      <img [src]="imagen"/>
     </ion-item>
   </ion-list>
   <ion-grid>

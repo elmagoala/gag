@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { SubirPage } from '../pages/subir/subir';
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
+//Pluggins
+import { Camera } from '@ionic-native/camera';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -48,6 +50,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     AngularFireDatabase,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
