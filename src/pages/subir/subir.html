@@ -8,6 +8,12 @@
       </button>
     </ion-buttons>
     <ion-title>{{titulo | placeHolder: 'Crear Post'}}</ion-title>
+    <ion-buttons end>
+      <button ion-button
+              (click)="crearPost()">
+        Crear Post
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -28,7 +34,8 @@
       <ion-col>
         <button ion-button
                 block
-                icon-left>
+                icon-left
+                (click)="seleccionarImagen()">
           <ion-icon ios="ios-browsers" md="md-browsers"></ion-icon>
           Seleccionar
         </button>

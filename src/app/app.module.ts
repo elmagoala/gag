@@ -11,11 +11,13 @@ import { SubirPage } from '../pages/subir/subir';
 import { PipesModule } from '../pipes/pipes.module';
 //Pluggins
 import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCIawa0y6wByaDWcix93CtxWz_HEGfgBPI",
@@ -51,6 +53,8 @@ export const firebaseConfig = {
     SplashScreen,
     AngularFireDatabase,
     Camera,
+    ImagePicker,
+    CargaArchivoProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
