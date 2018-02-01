@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, ViewController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
 
 @IonicPage()
@@ -10,12 +9,11 @@ import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archiv
   templateUrl: 'subir.html',
 })
 export class SubirPage {
-  titulo: string;
-  imagen: string;
+  titulo: string = "";
+  imagen: string = "";
   imagen64: string;
   constructor(private viewCtrl: ViewController,
               private camera: Camera,
-              private imagePicker: ImagePicker,
               public alertCtrl: AlertController,
               private cargarArchivoProvider: CargaArchivoProvider) {
   }
@@ -41,29 +39,19 @@ export class SubirPage {
   }
 
   seleccionarImagen() {
-    let opciones: ImagePickerOptions = {
-      quality: 70,
-      outputType: 1,
-      maximumImagesCount: 1
+    let options = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY //DESDE Libreria
     };
-
-    this.imagePicker.getPictures(opciones).then((results) => {
-      for (let img of results){
-        this.imagen = img;
-        img = img.replace('data:image/jpeg;base64,','');
-        break;
-      }
+    this.camera.getPicture(options).then((imageData) => {
+      this.imagen = 'data:image/jpeg;base64,' + imageData;
+      this.imagen64 = imageData;
     }, (err) => {
-      this.showAlert("Error seleccion: "+ JSON.stringify(err));
+      console.log("Error en galería: ", JSON.stringify(err));
     });
-
-    /*this.imagePicker.getPictures(opciones).then((results) => {
-      for (let i = 0; i < results.length; i++) {
-          this.imagen = 'data:image/jpeg;base64,' + results[i];
-      }
-    }, (err) => {
-        this.showAlert("Error: "+ JSON.stringify(err));
-    });*/
   }
 
   crearPost() {
@@ -71,7 +59,8 @@ export class SubirPage {
       img: this.imagen64,
       titulo: this.titulo
     }
-    this.cargarArchivoProvider.cargarImagenFirebase(archivo);
+    this.cargarArchivoProvider.cargarImagenFirebase(archivo)
+        .then(()=>this.cerrarModal());
   }
 
   showAlert(mensaje: string) {

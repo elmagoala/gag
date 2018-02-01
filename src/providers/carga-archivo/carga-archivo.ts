@@ -2,13 +2,23 @@ import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CargaArchivoProvider {
 
-  constructor(public toastCtrl: ToastController) {
+  lastKey: string = null;
+
+  constructor(public toastCtrl: ToastController,
+              private aFDb: AngularFireDatabase) {
 
   }
+
+  /*cargarUltimoKey() {
+    this.aFDb.list('/post', ref=> ref.orderByKey().limitToLast(1))
+             .valueChanges()
+             .map(())
+  }*/
 
   cargarImagenFirebase( archivo: Archivo ) {
     let promesa = new Promise((resolve, reject)=>{
@@ -29,13 +39,25 @@ export class CargaArchivoProvider {
         },
         ()=>{
           //ok
-          console.log('Archivo subido');
           this.mostrarToast('Imagen cargada correctamente');
+          let url = uploadTask.snapshot.downloadURL;
+          this.crearPost(archivo.titulo, url, nombreArchivo);
           resolve();
         }
       );
     });
     return promesa;
+  }
+
+  private crearPost( titulo: string, url: string, nombreArchivo: string) {
+    let post: Archivo = {
+      img: url,
+      titulo: titulo,
+      key: nombreArchivo
+    };
+
+    this.aFDb.object(`/post/${ nombreArchivo }`).update(post);
+
   }
 
   private mostrarToast( mensaje: string ) {
