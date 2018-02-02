@@ -9,9 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { SubirPage } from '../pages/subir/subir';
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
-//Pluggins
+//Plugins
 import { Camera } from '@ionic-native/camera';
-import { ImagePicker } from '@ionic-native/image-picker';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -53,8 +53,8 @@ export const firebaseConfig = {
     SplashScreen,
     AngularFireDatabase,
     Camera,
-    ImagePicker,
     CargaArchivoProvider,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
